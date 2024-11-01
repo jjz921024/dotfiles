@@ -114,22 +114,5 @@ setopt MENU_COMPLETE
 #unsetopt menucomplete
 #bindkey '^I' forward-word
 
-
 ## tmux config
 alias tnew='tmux -f ~/.tmux.conf new-session \; split-window -h \; split-window -v \; attach'
-
-
-export PATH=/root/.tiup/bin:$PATH
-export PATH=$PATH:/opt/gradle/gradle-7.1/bin
-
-export JAVA_HOME=/opt/TencentKona-8.0.6-292-fiber
-export JAVA_JRE=$JAVA_HOME/jre
-export CLASSPATH=$JAVA_HOME/lib:$JRE_HOME/lib:$CLASSPATH
-export PATH=$JAVA_HOME/bin:$JRE_HOME/bin:$PATH
-
-export GO_HOME=/opt/go
-export PATH=$GO_HOME/bin:$PATH
-
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="$HOME/.sdkman"
-[[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh"
