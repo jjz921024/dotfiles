@@ -1,3 +1,4 @@
+```
 go get -u -v github.com/nsf/gocode
 go get -u -v github.com/rogpeppe/godef
 go get -u -v github.com/golang/lint/golint
@@ -9,3 +10,4 @@ go get -u -v github.com/tpng/gopkgs
 go get -u -v github.com/newhook/go-symbols
 
 go get -d -v ./...
+```

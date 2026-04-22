@@ -1,38 +1,57 @@
-# install
+# zsh 配置
 
-## 常用快捷键
-- ctrl+a / home   定位到行首
-- ctrl+e / end    定位到行尾
-- ctrl+k / alt+d  删除光标所在处至行尾字符
-- ctrl+u          清空当前行
-- ctrl+r 搜索历史命令
-- cat 查按键映射
+## 安装
 
 ```bash
-# 支持的shell
-cat /etc/shells
-
-# 切换shell
-chsh -s /bin/zsh
-chsh -s $(which zsh)
-
-# 当前shell
-echo $SHELL
+bash install.sh
 ```
 
-## 技巧
-- 命令选项帮助: 如输入tar + -<tab> 会列出所有的选项和帮助说明
-- 目录补全: 比如输入 cd /u/l/b 然后tab补全/usr/local/bin
-- 目录浏览和跳转: 输入d, 即可列出你在这个会话里访问的目录列表，输入列表前的序号, 即可直接跳转
-- 命令补全: 如键入kill <tab> 就会列出所有的进程名和对应的进程号
-- 更智能的历史命令查找: zsh支持限制查找, 比如输入ls, 然后再按方向上键，则只会查找用过的ls命令
+安装内容:
+- zsh + oh-my-zsh
+- 插件: zsh-autosuggestions, zsh-syntax-highlighting
+- starship (prompt 主题)
+- zoxide (智能 cd)
+- fzf (模糊查找)
+- tmuxifier (tmux 布局管理)
+- autojump, trash-cli
+- 自动创建 .zshrc / .zshenv 符号链接
 
+安装后设置默认 shell:
+```bash
+chsh -s $(which zsh)
+```
+
+## 文件说明
+
+| 文件 | 说明 |
+|------|------|
+| `install.sh` | 安装脚本 |
+| `.zshrc` | zsh 主配置 |
+| `.zshenv` | 环境变量 (PATH, 语言工具链) |
+
+## 常用快捷键
+
+| 快捷键 | 功能 |
+|--------|------|
+| `Ctrl+A` / `Home` | 定位到行首 |
+| `Ctrl+E` / `End` | 定位到行尾 |
+| `Ctrl+K` / `Alt+D` | 删除光标至行尾 |
+| `Ctrl+U` | 清空当前行 |
+| `Ctrl+R` | 搜索历史命令 |
+
+## 自定义命令
+
+| 命令 | 说明 |
+|------|------|
+| `set_vpn` | 开启代理 |
+| `unset_vpn` | 关闭代理 |
+| `test_vpn` | 测试代理连通性 |
+| `mclaude` | 启动 Claude Code (自定义模型) |
+| `rgf <keyword>` | rg + fzf 搜索文件内容 |
+| `tnew` | 创建三面板 tmux 会话 |
 
 ## 问题
-遇到term can't find的问题
-1. 从其他机器上拷贝`/usr/share/terminfo`目录
-   ```bash
-    tar -cf term.tar /usr/share/terminfo
-    tar -xf term.tar -C /usr/share
-   ```
-2. 在.zshrc中配置`TERM=xterm-256color`
+
+遇到 `term can't find` 的问题:
+1. 从其他机器拷贝 `/usr/share/terminfo` 目录
+2. 或在 .zshrc 中设置 `TERM=xterm-256color`
