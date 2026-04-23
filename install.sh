@@ -55,10 +55,7 @@ command -v starship &>/dev/null || curl -sS https://starship.rs/install.sh | sh 
 command -v zoxide &>/dev/null || curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 
 # ── fzf ──
-[ -d "$HOME/.fzf" ] || {
-    git clone --depth 1 https://github.com/junegunn/fzf.git "$HOME/.fzf"
-    "$HOME/.fzf/install" --key-bindings --completion --no-update-rc
-}
+command -v fzf &>/dev/null || pkg_install fzf
 
 # ── 系统工具 ──
 command -v trash-put &>/dev/null || pkg_install trash-cli
@@ -66,12 +63,11 @@ command -v trash-put &>/dev/null || pkg_install trash-cli
 # ── 符号链接 ──
 link "$DOTFILES/zsh/.zshrc"      "$HOME/.zshrc"
 link "$DOTFILES/zsh/.zshenv"     "$HOME/.zshenv"
+link "$DOTFILES/fzf/fzf.zsh"     "$HOME/.config/fzf.zsh"
 link "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
 
 # ── tmux ──
-if ! command -v tmux &>/dev/null; then
-    pkg_install tmux
-fi
+command -v tmux &>/dev/null || pkg_install tmux
 
 # TPM (tmux 插件管理器)
 [ -d "$HOME/.tmux/plugins/tpm" ] ||
