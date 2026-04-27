@@ -61,10 +61,11 @@ command -v fzf &>/dev/null || pkg_install fzf
 command -v trash-put &>/dev/null || pkg_install trash-cli
 
 # ── 符号链接 ──
-link "$DOTFILES/zsh/.zshrc"      "$HOME/.zshrc"
-link "$DOTFILES/zsh/.zshenv"     "$HOME/.zshenv"
-link "$DOTFILES/fzf/fzf.zsh"     "$HOME/.config/fzf.zsh"
-link "$DOTFILES/tmux/.tmux.conf" "$HOME/.tmux.conf"
+link "$DOTFILES/config/.zshrc"      "$HOME/.zshrc"
+link "$DOTFILES/config/.zshenv"     "$HOME/.zshenv"
+link "$DOTFILES/config/fzf.zsh"     "$HOME/.config/fzf.zsh"
+link "$DOTFILES/config/.tmux.conf"  "$HOME/.tmux.conf"
+link "$DOTFILES/config/starship.toml"  "$HOME/.config/starship.toml"
 
 # ── tmux ──
 command -v tmux &>/dev/null || pkg_install tmux
@@ -73,7 +74,7 @@ command -v tmux &>/dev/null || pkg_install tmux
 [ -d "$HOME/.tmux/plugins/tpm" ] ||
     git clone https://github.com/tmux-plugins/tpm "$HOME/.tmux/plugins/tpm"
 
-# 安装 tmux 插件 (首次)
+# 安装 tmux 插件
 if [ -f "$HOME/.tmux/plugins/tpm/bin/install_plugins" ]; then
     "$HOME/.tmux/plugins/tpm/bin/install_plugins"
 fi

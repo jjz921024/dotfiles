@@ -1,11 +1,5 @@
 # zsh 配置
 
-## 安装
-
-```bash
-bash install.sh
-```
-
 安装内容:
 - zsh + oh-my-zsh
 - 插件: zsh-autosuggestions, zsh-syntax-highlighting
