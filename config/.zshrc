@@ -247,3 +247,46 @@ export PATH=/home/skyjiang/.opencode/bin:$PATH
 
 alias ccglm="claude --settings ${HOME}/.claude/settings-glm.json --model glm-5.1"
 alias ccds="claude --settings ${HOME}/.claude/settings-ds.json"
+
+# ────────────────────────────────────────────────────────────────────────────
+# 补全增强 (zstyle)
+# ────────────────────────────────────────────────────────────────────────────
+# 加载 compinit 补全函数
+autoload -Uz compinit
+compinit
+# 补全管线：先展开通配符/变量 → 常规补全 → 拼写纠错 → 模糊匹配
+zstyle ':completion:*' completer _expand _complete _correct _approximate
+# 补全组标题格式，%d = 描述文本（如 external command）
+zstyle ':completion:*' format 'Completing %d'
+zstyle ':completion:*' auto-description 'specify: %d'
+# 保持各组独立显示，按 tag 名分组
+zstyle ':completion:*' group-name ''
+# 列表超屏时才启用菜单选择（方向键浏览）
+zstyle ':completion:*' menu select=long
+# 分页时的提示，%p = 当前页码
+zstyle ':completion:*' list-prompt %SAt %p: Hit TAB for more, or the character to insert%s
+# 菜单选择时的提示
+zstyle ':completion:*' select-prompt %SScrolling active: current selection at %p%s
+# 禁用旧 compctl 系统
+zstyle ':completion:*' use-compctl false
+# 在补全列表中显示详细描述
+zstyle ':completion:*' verbose true
+
+# ── 匹配规则（分 4 轮尝试）────────────────────────────────────────────────
+# 1. 精确匹配 → 2. 小写不区分大小写 → 3. 双向不区分大小写 → 4. 分隔符处部分匹配
+zstyle ':completion:*' matcher-list '' 'm:{a-z}={A-Z}' 'm:{a-zA-Z}={A-Za-z}' 'r:|[._-]=* r:|=* l:|=*'
+
+# ── 列表着色 ───────────────────────────────────────────────────────────────
+# 将 LS_COLORS 应用到补全列表（目录、可执行文件等显示不同颜色）
+eval "$(dircolors -b)"
+zstyle ':completion:*:default' list-colors ${(s.:.)LS_COLORS}
+# 非默认上下文重置着色
+zstyle ':completion:*' list-colors ''
+
+# ── 进程补全 ──────────────────────────────────────────────────────────────
+# PID 以粗体红色显示，仅列出当前用户的进程
+zstyle ':completion:*:*:kill:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:kill:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
+
+zstyle ':completion:*:*:htop:*:processes' list-colors '=(#b) #([0-9]#)*=0=01;31'
+zstyle ':completion:*:htop:*' command 'ps -u $USER -o pid,%cpu,tty,cputime,cmd'
