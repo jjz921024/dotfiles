@@ -238,7 +238,12 @@ function rgf() {
     rg -l "$1" | fzf --preview "rg -n --color=always -C 3 '$1' {}" --preview-window "up:70%:wrap:border"
 }
 
+#ln -s $(which fdfind) ~/.local/bin/fd
+
 # ────────────────────────────────────────────────────────────────────────────
-# PATH
+# LLM Agent
 # ────────────────────────────────────────────────────────────────────────────
 export PATH=/home/skyjiang/.opencode/bin:$PATH
+
+alias ccglm="claude --settings ${HOME}/.claude/settings-glm.json --model glm-5.1"
+alias ccds="claude --settings ${HOME}/.claude/settings-ds.json"

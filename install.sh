@@ -63,8 +63,8 @@ command -v trash-put &>/dev/null || pkg_install trash-cli
 # ── 符号链接 ──
 link "$DOTFILES/config/.zshrc"      "$HOME/.zshrc"
 link "$DOTFILES/config/.zshenv"     "$HOME/.zshenv"
-link "$DOTFILES/config/fzf.zsh"     "$HOME/.config/fzf.zsh"
 link "$DOTFILES/config/.tmux.conf"  "$HOME/.tmux.conf"
+link "$DOTFILES/config/fzf.zsh"     "$HOME/.config/fzf.zsh"
 link "$DOTFILES/config/starship.toml"  "$HOME/.config/starship.toml"
 
 # ── tmux ──
