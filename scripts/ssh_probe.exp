@@ -1,0 +1,68 @@
+#!/usr/bin/expect
+set timeout 3
+set ip [lindex $argv 0]
+set id [lindex $argv 1]
+set isAdd [lindex $argv 2]
+set user "app"
+set pass "Apps@123"
+
+# 当前机器的公钥传输到目标机authorized_keys
+proc add_id_pub { user ip pass_flag pass id } \
+{
+    if { $pass_flag == 1 || [exec cat $::env(HOME)/.ssh/id_rsa] != [exec cat $id] } {
+        if { $pass_flag == 1 } {
+            spawn sh ./ssh-copy-id -i $::env(HOME)/.ssh/id_rsa.pub $user@$ip
+            expect {
+                "yes/no" { send "yes\r"; exp_continue  }
+                "word:" { send "${pass}\r" }
+                timeout { puts "copy id timeout\r" }
+            }
+            expect eof
+        } else {
+            spawn sh ./ssh-copy-id -i $::env(HOME)/.ssh/id_rsa.pub -I $id $user@$ip
+            expect eof
+        }
+        puts "have add id_rsa.pub to ${user}@${ip}:$::env(HOME)/.ssh/authorized_keys"
+    }
+}
+
+# 鉴定用户的登录方式
+# retcode: 1->私钥登录,2->密码登录,-1->登录超时,-3->密码登录过失败一次,-4->连接拒绝
+proc auth_user { user ip pass id isAdd } \
+{
+    set success 0
+    set pass_flag 0
+    spawn ssh -i $id -l $user $ip date
+    expect  {
+        "*yes/no*" { send "yes\r"; exp_continue  }
+        "*CST*" { 
+            if { $pass_flag == 1} {
+                set success 2
+                set isAdd "add"
+            } else {
+                set success 1
+            }
+            if { $isAdd == "add" } {
+                add_id_pub $user $ip $pass_flag $pass $id
+            } else {
+    #            puts "no adding id_rsa.pub to ${user}@${ip}:$::env(HOME)/.ssh/authorized_keys"
+            }
+         }
+        "word:" { 
+            send "${pass}\r"
+            if { $success == 0 } {
+                incr success -1
+                set pass_flag 1
+                exp_continue 
+            }
+        }
+        "try again." { send "\r"; set success -3 }
+        "*Connection refused*" { set success -4 }
+        timeout { set success -1 }
+    }
+    expect eof
+    puts stdout auth_user:$success
+    exit $success
+}
+
+auth_user $user $ip $pass $id $isAdd

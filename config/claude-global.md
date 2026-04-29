@@ -19,15 +19,15 @@
 | 生命周期 | `'a`, `'ctx` | — |
 
 ### 代码组织
-- 导入分组：`std → 外部crate → 本地`，组内按字母序
 - 公共 API 在 crate 根 `pub use` 统一重导出
 - `unwrap`/`expect` 仅允许在测试或可证明的不可变场景
 
 ### use 语句导入规则
-- **优先导入类型本身，而非其父模块** — `use crate::foo::Bar` 优于 `use crate::foo` 然后 `foo::Bar`
-- **同名类型使用父模块导入避免歧义** — 当两个 crate 有同名类型时，导入父模块并通过模块路径区分：`use crate::a` 和 `use crate::b`，使用时 `a::Config` / `b::Config`
-- 导入顺序严格保持：`std → 外部crate → 本地`，组间空行分隔
-- 避免 `use ...::*` 通配导入（测试模块除外）
+- 类型直接导入 — `use crate::config::Config`，而非 `use crate::config` 然后 `config::Config`
+- 函数导入模块 — 导入模块（到具体子模块）而非裸函数，调用处写作 `module::function`。例外：Prelude 常用函数（如 `std::io::stdout`）可直接导入
+- 同名类型 — 使用一级模块路径或 `as` 别名消除歧义，如 `use std::io` 后 `io::Error`，或 `use std::io::Error as IoError`
+- 导入顺序 — `std → 外部crate → 本地`，组间空行分隔
+- 禁止通配导入 — 避免 `use ...::*`（测试模块除外）
 
 ---
 
