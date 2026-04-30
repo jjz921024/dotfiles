@@ -35,7 +35,6 @@ export PROTOC=$HOME/package/protoc-3.20/bin/protoc
 export PATH="$HOME/.tmux/plugins/tmuxifier/bin:$PATH"
 
 . "$HOME/.local/bin/env"
-#. "$HOME/.atuin/bin/env"
 
 export gflags_DIR=$HOME/c-projects/gflags/build
 export GFLAGS_LIBRARIES=$HOME/c-projects/gflags/build/lib
