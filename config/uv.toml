@@ -1,0 +1,7 @@
+# 加速 uv python install 下载解释器
+python-install-mirror = "https://cnb.cool/astral-sh/python-build-standalone/-/releases/download/"
+
+# 加速 uv add/pip install 下载第三方包
+[[index]]
+url = "https://pypi.tuna.tsinghua.edu.cn/simple"
+default = true

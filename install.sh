@@ -65,7 +65,10 @@ link "$DOTFILES/config/.zshrc"      "$HOME/.zshrc"
 link "$DOTFILES/config/.zshenv"     "$HOME/.zshenv"
 link "$DOTFILES/config/.tmux.conf"  "$HOME/.tmux.conf"
 link "$DOTFILES/config/fzf.zsh"     "$HOME/.config/fzf.zsh"
+link "$DOTFILES/config/uv.toml"     "$HOME/.config/uv/uv.toml"
 link "$DOTFILES/config/starship.toml"  "$HOME/.config/starship.toml"
+
+link "$DOTFILES/config/clash.service"  "/etc/systemd/system/clash.service"
 
 # ── tmux ──
 command -v tmux &>/dev/null || pkg_install tmux

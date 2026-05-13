@@ -1,0 +1,12 @@
+[Unit]
+Description=Clash service
+After=network.target
+
+[Service]
+ExecStart=/home/skyjiang/clash/clash-linux-amd64-v1.18.0 -f /home/skyjiang/clash/clash.yaml
+WorkingDirectory=/home/skyjiang/clash
+Restart=no
+LimitNPROC=1
+
+[Install]
+WantedBy=multi-user.target

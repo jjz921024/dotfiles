@@ -1,0 +1,25 @@
+# This is Git's per-user configuration file.
+[user]
+	name = anotherJJz
+	email = 470623352@qq.com
+
+[core]
+	autocrlf = input
+	hooksPath = /home/skyjiang/.git-hooks
+
+[http]
+	proxy = http://127.0.0.1:7890
+	version = HTTP/1.1
+	sslVerify = false
+	postBuffer = 524288000
+
+[https]
+	proxy = https://127.0.0.1:7890
+	postBuffer = 524288000
+	sslVerify = false
+
+[safe]
+	directory = /home/skyjiang/rust-projects/kvproto
+
+[alias]
+	lg = log --graph --abbrev-commit --decorate --format=format:'%C(bold blue)%h%C(reset) - %C(bold green)(%ar)%C(reset) %C(white)%s%C(reset) %C(dim white)- %an%C(reset)%C(auto)%d%C(reset)' --all
